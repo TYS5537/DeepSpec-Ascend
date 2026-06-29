@@ -1,4 +1,8 @@
 from deepspec.data import CacheCollator
+from deepspec.modeling.dspark.deepseek_v4 import DeepseekV4DSparkModel
+from deepspec.modeling.dspark.deepseek_v4.config import (
+    build_draft_config as build_deepseek_v4_draft_config,
+)
 from deepspec.modeling.dspark.gemma4 import Gemma4DSparkModel
 from deepspec.modeling.dspark.gemma4.config import (
     build_draft_config as build_gemma4_draft_config,
@@ -46,3 +50,12 @@ class Gemma4DSparkTrainer(Qwen3DSparkTrainer):
             model_args=model_args,
         )
         return Gemma4DSparkModel(draft_config)
+
+
+class DeepseekV4DSparkTrainer(Qwen3DSparkTrainer):
+    def _build_draft_model(self, *, target_config, model_args):
+        draft_config = build_deepseek_v4_draft_config(
+            target_config=target_config,
+            model_args=model_args,
+        )
+        return DeepseekV4DSparkModel(draft_config)

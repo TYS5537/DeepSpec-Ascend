@@ -50,6 +50,16 @@ TEMPLATE_REGISTRY.register(
     ),
 )
 
+TEMPLATE_REGISTRY.register(
+    "deepseek",
+    ChatTemplate(
+        assistant_header="<｜Assistant｜>",
+        user_header="<｜User｜>",
+        system_prompt=None,
+        end_of_turn_token="<｜end▁of▁sentence｜>",
+    ),
+)
+
 
 class GeneralParser:
     def __init__(self, tokenizer, chat_template):
@@ -171,6 +181,13 @@ def render_chat_messages(
     add_generation_prompt: bool,
     enable_thinking: bool | None = None,
 ) -> str:
+    if getattr(tokenizer, "chat_template", None) is None and _is_deepseek_tokenizer(
+        tokenizer
+    ):
+        return render_deepseek_messages(
+            messages,
+            add_generation_prompt=add_generation_prompt,
+        )
     chat_kwargs = {
         "tokenize": False,
         "add_generation_prompt": add_generation_prompt,
@@ -178,6 +195,37 @@ def render_chat_messages(
     if enable_thinking is not None:
         chat_kwargs["enable_thinking"] = enable_thinking
     return tokenizer.apply_chat_template(messages, **chat_kwargs)
+
+
+def _is_deepseek_tokenizer(tokenizer) -> bool:
+    bos = getattr(tokenizer, "bos_token", None)
+    eos = getattr(tokenizer, "eos_token", None)
+    return bos == "<｜begin▁of▁sentence｜>" and eos == "<｜end▁of▁sentence｜>"
+
+
+def render_deepseek_messages(
+    messages,
+    *,
+    add_generation_prompt: bool,
+) -> str:
+    parts = ["<｜begin▁of▁sentence｜>"]
+    for message in messages:
+        role = message["role"]
+        content = message.get("content", "")
+        assert isinstance(content, str), (
+            "DeepSeek chat rendering expects message content to be text."
+        )
+        if role == "system":
+            parts.append(content)
+        elif role == "user":
+            parts.append(f"<｜User｜>{content}")
+        elif role == "assistant":
+            parts.append(f"<｜Assistant｜>{content}<｜end▁of▁sentence｜>")
+        else:
+            assert False, f"Unsupported DeepSeek chat role: {role}"
+    if add_generation_prompt:
+        parts.append("<｜Assistant｜>")
+    return "".join(parts)
 
 
 def encode_chat_messages(

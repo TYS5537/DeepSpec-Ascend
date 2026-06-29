@@ -20,6 +20,7 @@ from deepspec.eval.dspark.draft_ops import (
     forward_dspark_draft_block,
 )
 from deepspec.modeling.dspark.common import extract_context_feature
+from deepspec.modeling.dspark.deepseek_v4 import DeepseekV4DSparkModel
 from deepspec.modeling.dspark.gemma4 import Gemma4DSparkModel
 from deepspec.modeling.dspark.qwen3 import Qwen3DSparkModel
 from deepspec.utils import jsonable
@@ -223,3 +224,8 @@ class Qwen3DSparkEvaluator(BaseEvaluator):
 
 class Gemma4DSparkEvaluator(Qwen3DSparkEvaluator):
     draft_model_cls = Gemma4DSparkModel
+
+
+class DeepseekV4DSparkEvaluator(Qwen3DSparkEvaluator):
+    EVAL_ATTN_IMPLEMENTATION = "eager"
+    draft_model_cls = DeepseekV4DSparkModel

@@ -80,6 +80,6 @@ DeepSpec builds on the ideas and code of several excellent open-source projects:
 
 - [SpecForge](https://github.com/sgl-project/SpecForge) (Apache-2.0) — the overall training framework and Eagle3 implementation; portions of the Eagle3 modeling, loss, optimizer, attention, and evaluation code are adapted from it. Adapted files carry an in-file attribution comment, and the full notice is recorded in [NOTICE](./NOTICE).
 - [DFlash](https://github.com/z-lab/dflash) (MIT) — the DFlash draft-model design and training recipe.
-- [Qwen3](https://github.com/QwenLM/Qwen3) and [Gemma](https://github.com/google-deepmind/gemma) — the target model families supported in this repo.
+- [Qwen3](https://github.com/QwenLM/Qwen3), [Gemma](https://github.com/google-deepmind/gemma), and [DeepSeek-V4](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash) — the target model families supported in this repo.
 
 We thank the authors and maintainers of these projects. Contributions of new algorithms are welcome.

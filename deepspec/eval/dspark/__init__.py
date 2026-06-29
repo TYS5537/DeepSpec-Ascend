@@ -1,4 +1,8 @@
-from .evaluator import Gemma4DSparkEvaluator, Qwen3DSparkEvaluator
+from .evaluator import (
+    DeepseekV4DSparkEvaluator,
+    Gemma4DSparkEvaluator,
+    Qwen3DSparkEvaluator,
+)
 from .draft_ops import (
     DSparkDraftProposal,
     build_dspark_proposal,
@@ -7,6 +11,7 @@ from .draft_ops import (
 from .confidence_head import ConfidenceHeadRecorder
 
 __all__ = [
+    "DeepseekV4DSparkEvaluator",
     "Gemma4DSparkEvaluator",
     "Qwen3DSparkEvaluator",
     "DSparkDraftProposal",
