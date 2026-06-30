@@ -6,7 +6,7 @@ from deepspec.trainer import DeepseekV4DSparkTrainer
 BASE_TB_DIR = os.path.expanduser("~/tensorboard")
 BASE_CKPT_DIR = os.path.expanduser("~/checkpoints")
 project_name = "deepspec"
-exp_name = "dflash_block8_deepseek_v4_flash"
+exp_name = "dspark_block8_deepseek_v4_flash"
 seed = 42
 
 model = dict(

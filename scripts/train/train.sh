@@ -12,12 +12,12 @@ export WORLD_SIZE=${WORLD_SIZE:-1}
 
 # Available public configs:
 ## dflash
-#   config/dflash/dflash_deepseek_v4_flash.py
 #   config/dflash/dflash_gemma4_12b.py
 #   config/dflash/dflash_qwen3_4b.py
 #   config/dflash/dflash_qwen3_8b.py
 #   config/dflash/dflash_qwen3_14b.py
 ## dspark
+#   config/dspark/dspark_deepseek_v4_flash.py
 #   config/dspark/dspark_gemma4_12b.py
 #   config/dspark/dspark_qwen3_4b.py
 #   config/dspark/dspark_qwen3_8b.py
